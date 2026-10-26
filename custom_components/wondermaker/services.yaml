@@ -1,0 +1,26 @@
+send_gcode:
+  fields:
+    gcode:
+      required: true
+      example: "G28"
+      selector:
+        text:
+          multiline: true
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: wondermaker
+
+start_print:
+  fields:
+    filename:
+      required: true
+      example: "Benchy.gcode"
+      selector:
+        text:
+    config_entry_id:
+      required: false
+      selector:
+        config_entry:
+          integration: wondermaker

@@ -1,0 +1,294 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "WonderMaker verbinden",
+        "description": "Adresse des Druckers eingeben (Moonraker, Standardport 7125).",
+        "data": {
+          "host": "Host / IP-Adresse",
+          "port": "Port",
+          "api_key": "API-Schlüssel (optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Anmeldung erforderlich",
+        "description": "Gib einen gültigen Moonraker-API-Schlüssel ein.",
+        "data": {
+          "api_key": "API-Schlüssel"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Drucker nicht möglich.",
+      "invalid_auth": "Authentifizierung fehlgeschlagen. Prüfe den API-Schlüssel oder trusted_clients in der moonraker.conf."
+    },
+    "abort": {
+      "already_configured": "Dieser Drucker ist bereits eingerichtet.",
+      "reauth_successful": "Neu-Authentifizierung erfolgreich."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Einstellungen",
+        "menu_options": {
+          "general": "Allgemein",
+          "notifications": "Benachrichtigungen"
+        }
+      },
+      "general": {
+        "title": "Allgemein",
+        "data": {
+          "scan_interval": "Abfrageintervall (Sekunden)",
+          "finish_time_enabled": "„Voraussichtlich fertig“ anzeigen",
+          "finish_time_interval": "Aktualisierung „Voraussichtlich fertig“ (Sekunden)",
+          "layer_enabled": "Schichtanzeige verwenden",
+          "layer_interval": "Aktualisierung der Schichtanzeige (Sekunden)"
+        },
+        "data_description": {
+          "scan_interval": "Wie oft der Drucker abgefragt wird.",
+          "finish_time_enabled": "Aus: Der Sensor zeigt keinen Wert (weniger Einträge in Verlauf und Logbuch).",
+          "finish_time_interval": "Wie oft die voraussichtliche Fertigstellung neu berechnet wird.",
+          "layer_enabled": "Aus: Die Schicht-Sensoren zeigen keinen Wert (weniger Einträge in Verlauf und Logbuch).",
+          "layer_interval": "Mindestabstand zwischen Schicht-Aktualisierungen. Der Wert springt während eines Drucks nie zurück."
+        }
+      },
+      "notifications": {
+        "title": "Benachrichtigungen",
+        "description": "Lege fest, wohin Push-Nachrichten gehen und bei welchen Ereignissen. Zum Ausprobieren gibt es auf der Geräteseite den Button „Testbenachrichtigung senden“.",
+        "data": {
+          "notify_targets": "Senden an (Geräte / Dienste)",
+          "notify_enabled": "Druck fertig",
+          "notify_with_image": "Foto bei „Druck fertig“",
+          "notify_snapshot_delay": "Verzögerung vor dem Foto (Sekunden)",
+          "notify_error": "Fehler (Druckabbruch / Klipper-Fehler)",
+          "notify_error_image": "Foto bei „Fehler“",
+          "notify_filament": "Filament leer (während eines Drucks)",
+          "notify_door": "Tür geöffnet (während eines Drucks, alle Türschalter offen)"
+        },
+        "data_description": {
+          "notify_targets": "notify-Dienste, z. B. die Mobile-App deines Handys. Mehrere möglich.",
+          "notify_with_image": "Nimmt nach dem Druck einen Kamera-Schnappschuss auf und hängt ihn an.",
+          "notify_snapshot_delay": "Gibt dem Werkzeug Zeit, wegzufahren, bevor das Foto entsteht (nur bei „Druck fertig“).",
+          "notify_error_image": "Nimmt sofort beim Auftreten des Fehlers einen Schnappschuss auf.",
+          "notify_door": "Nur solange ein Druck läuft oder pausiert ist."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "print_state": {
+        "name": "Druckstatus",
+        "state": {
+          "standby": "Bereit",
+          "printing": "Druckt",
+          "paused": "Pausiert",
+          "complete": "Fertig",
+          "cancelled": "Abgebrochen",
+          "error": "Fehler"
+        }
+      },
+      "progress": {
+        "name": "Fortschritt"
+      },
+      "filename": {
+        "name": "Datei"
+      },
+      "print_duration": {
+        "name": "Druckdauer"
+      },
+      "time_remaining": {
+        "name": "Restzeit"
+      },
+      "finish_time": {
+        "name": "Voraussichtlich fertig"
+      },
+      "current_layer": {
+        "name": "Aktuelle Schicht"
+      },
+      "total_layers": {
+        "name": "Schichten gesamt"
+      },
+      "filament_used": {
+        "name": "Filamentverbrauch"
+      },
+      "nozzle_temperature": {
+        "name": "Düsentemperatur (aktives Werkzeug)"
+      },
+      "active_tool": {
+        "name": "Aktives Werkzeug"
+      },
+      "tool_temperature": {
+        "name": "Werkzeug {tool} Temperatur"
+      },
+      "chamber_temperature": {
+        "name": "Bauraumtemperatur"
+      },
+      "fan_speed": {
+        "name": "Lüfter {name}"
+      },
+      "nozzle_target": {
+        "name": "Düse Soll (aktives Werkzeug)"
+      },
+      "bed_temperature": {
+        "name": "Betttemperatur"
+      },
+      "bed_target": {
+        "name": "Bett Soll"
+      },
+      "part_fan": {
+        "name": "Bauteillüfter"
+      },
+      "speed_factor": {
+        "name": "Geschwindigkeitsfaktor"
+      },
+      "flow_factor": {
+        "name": "Flussfaktor"
+      },
+      "z_height": {
+        "name": "Z-Höhe"
+      },
+      "klippy_state": {
+        "name": "Klipper-Status"
+      },
+      "klipper_version": {
+        "name": "Klipper-Version"
+      },
+      "host_cpu": {
+        "name": "Host-CPU-Last"
+      },
+      "host_memory": {
+        "name": "Host-Speicherauslastung"
+      },
+      "host_temperature": {
+        "name": "Host-CPU-Temperatur"
+      }
+    },
+    "binary_sensor": {
+      "printing": {
+        "name": "Druckt"
+      },
+      "paused": {
+        "name": "Pausiert"
+      },
+      "error": {
+        "name": "Fehler"
+      },
+      "klippy_connected": {
+        "name": "Klipper verbunden"
+      },
+      "plate_cleared": {
+        "name": "Druckplatte geleert"
+      },
+      "tool_filament": {
+        "name": "Filament Werkzeug {tool}"
+      },
+      "tool_docked": {
+        "name": "Werkzeug {tool} im Dock"
+      },
+      "path_filament": {
+        "name": "Filamentpfad {path}"
+      },
+      "changer_sensor": {
+        "name": "Werkzeugwechsler Sensor {sensor}"
+      },
+      "door_switch": {
+        "name": "Türschalter {name}"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "Druck pausieren"
+      },
+      "resume": {
+        "name": "Druck fortsetzen"
+      },
+      "cancel": {
+        "name": "Druck abbrechen"
+      },
+      "home": {
+        "name": "Alle Achsen homen"
+      },
+      "emergency_stop": {
+        "name": "Not-Stopp"
+      },
+      "firmware_restart": {
+        "name": "Firmware-Neustart"
+      },
+      "klipper_restart": {
+        "name": "Klipper-Neustart"
+      },
+      "test_notification": {
+        "name": "Testbenachrichtigung senden"
+      }
+    },
+    "number": {
+      "nozzle_target_temp": {
+        "name": "Düse Solltemperatur (aktives Werkzeug)"
+      },
+      "tool_target_temp": {
+        "name": "Werkzeug {tool} Solltemperatur"
+      },
+      "chamber_target_temp": {
+        "name": "Bauraum Solltemperatur"
+      },
+      "fan_set": {
+        "name": "Lüfter {name} Drehzahl"
+      },
+      "bed_target_temp": {
+        "name": "Bett Solltemperatur"
+      },
+      "speed_factor_set": {
+        "name": "Geschwindigkeitsfaktor"
+      },
+      "flow_factor_set": {
+        "name": "Flussfaktor"
+      },
+      "part_fan_set": {
+        "name": "Bauteillüfter"
+      }
+    },
+    "image": {
+      "cover_image": {
+        "name": "Druckvorschau"
+      },
+      "print_photo": {
+        "name": "Foto vom letzten Druck"
+      },
+      "error_photo": {
+        "name": "Foto vom letzten Fehler"
+      }
+    }
+  },
+  "services": {
+    "send_gcode": {
+      "name": "G-Code senden",
+      "description": "Sendet G-Code an den Drucker.",
+      "fields": {
+        "gcode": {
+          "name": "G-Code",
+          "description": "G-Code-Befehle, einer pro Zeile."
+        },
+        "config_entry_id": {
+          "name": "Drucker",
+          "description": "Nur bei mehreren Druckern nötig."
+        }
+      }
+    },
+    "start_print": {
+      "name": "Druck starten",
+      "description": "Startet den Druck einer Datei aus dem Druckerspeicher.",
+      "fields": {
+        "filename": {
+          "name": "Dateiname",
+          "description": "Pfad relativ zum gcodes-Ordner."
+        },
+        "config_entry_id": {
+          "name": "Drucker",
+          "description": "Nur bei mehreren Druckern nötig."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect WonderMaker",
+        "description": "Enter the address of the printer (Moonraker, default port 7125).",
+        "data": {
+          "host": "Host / IP address",
+          "port": "Port",
+          "api_key": "API key (optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Authentication required",
+        "description": "Enter a valid Moonraker API key.",
+        "data": {
+          "api_key": "API key"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the printer.",
+      "invalid_auth": "Authentication failed. Check the API key or trusted_clients in moonraker.conf."
+    },
+    "abort": {
+      "already_configured": "This printer is already configured.",
+      "reauth_successful": "Re-authentication successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Settings",
+        "menu_options": {
+          "general": "General",
+          "notifications": "Notifications"
+        }
+      },
+      "general": {
+        "title": "General",
+        "data": {
+          "scan_interval": "Polling interval (seconds)",
+          "finish_time_enabled": "Show estimated finish",
+          "finish_time_interval": "Update interval for “Estimated finish” (seconds)",
+          "layer_enabled": "Show layers",
+          "layer_interval": "Update interval for the layer display (seconds)"
+        },
+        "data_description": {
+          "scan_interval": "How often the printer is queried.",
+          "finish_time_enabled": "Off: the sensor shows no value (fewer entries in history and logbook).",
+          "finish_time_interval": "How often the estimated finish time is recalculated.",
+          "layer_enabled": "Off: the layer sensors show no value (fewer entries in history and logbook).",
+          "layer_interval": "Minimum time between layer updates. The value never jumps back during a print."
+        }
+      },
+      "notifications": {
+        "title": "Notifications",
+        "description": "Choose where push messages go and for which events. Use the button “Send test notification” on the device page to try it out.",
+        "data": {
+          "notify_targets": "Send to (devices / services)",
+          "notify_enabled": "Print finished",
+          "notify_with_image": "Photo with “Print finished”",
+          "notify_snapshot_delay": "Delay before the photo (seconds)",
+          "notify_error": "Error (print aborted / Klipper error)",
+          "notify_error_image": "Photo with “Error”",
+          "notify_filament": "Filament runout (during a print)",
+          "notify_door": "Door opened (during a print, all door switches open)"
+        },
+        "data_description": {
+          "notify_targets": "notify services, e.g. the mobile app of your phone. Several can be selected.",
+          "notify_with_image": "Takes a camera snapshot after the print and attaches it.",
+          "notify_snapshot_delay": "Gives the tool time to move away before the photo is taken (only for “Print finished”).",
+          "notify_error_image": "Takes a snapshot right when the error occurs.",
+          "notify_door": "Only while a print is running or paused."
+        }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "print_state": {
+        "name": "Print state",
+        "state": {
+          "standby": "Standby",
+          "printing": "Printing",
+          "paused": "Paused",
+          "complete": "Complete",
+          "cancelled": "Cancelled",
+          "error": "Error"
+        }
+      },
+      "progress": {
+        "name": "Progress"
+      },
+      "filename": {
+        "name": "File"
+      },
+      "print_duration": {
+        "name": "Print duration"
+      },
+      "time_remaining": {
+        "name": "Time remaining"
+      },
+      "finish_time": {
+        "name": "Estimated finish"
+      },
+      "current_layer": {
+        "name": "Current layer"
+      },
+      "total_layers": {
+        "name": "Total layers"
+      },
+      "filament_used": {
+        "name": "Filament used"
+      },
+      "nozzle_temperature": {
+        "name": "Nozzle temperature (active tool)"
+      },
+      "active_tool": {
+        "name": "Active tool"
+      },
+      "tool_temperature": {
+        "name": "Tool {tool} temperature"
+      },
+      "chamber_temperature": {
+        "name": "Chamber temperature"
+      },
+      "fan_speed": {
+        "name": "Fan {name}"
+      },
+      "nozzle_target": {
+        "name": "Nozzle target (active tool)"
+      },
+      "bed_temperature": {
+        "name": "Bed temperature"
+      },
+      "bed_target": {
+        "name": "Bed target"
+      },
+      "part_fan": {
+        "name": "Part cooling fan"
+      },
+      "speed_factor": {
+        "name": "Speed factor"
+      },
+      "flow_factor": {
+        "name": "Flow factor"
+      },
+      "z_height": {
+        "name": "Z height"
+      },
+      "klippy_state": {
+        "name": "Klipper state"
+      },
+      "klipper_version": {
+        "name": "Klipper version"
+      },
+      "host_cpu": {
+        "name": "Host CPU load"
+      },
+      "host_memory": {
+        "name": "Host memory usage"
+      },
+      "host_temperature": {
+        "name": "Host CPU temperature"
+      }
+    },
+    "binary_sensor": {
+      "printing": {
+        "name": "Printing"
+      },
+      "paused": {
+        "name": "Paused"
+      },
+      "error": {
+        "name": "Error"
+      },
+      "klippy_connected": {
+        "name": "Klipper connected"
+      },
+      "plate_cleared": {
+        "name": "Plate cleared"
+      },
+      "tool_filament": {
+        "name": "Filament tool {tool}"
+      },
+      "tool_docked": {
+        "name": "Tool {tool} docked"
+      },
+      "path_filament": {
+        "name": "Filament path {path}"
+      },
+      "changer_sensor": {
+        "name": "Tool changer sensor {sensor}"
+      },
+      "door_switch": {
+        "name": "Door switch {name}"
+      }
+    },
+    "button": {
+      "pause": {
+        "name": "Pause print"
+      },
+      "resume": {
+        "name": "Resume print"
+      },
+      "cancel": {
+        "name": "Cancel print"
+      },
+      "home": {
+        "name": "Home all axes"
+      },
+      "emergency_stop": {
+        "name": "Emergency stop"
+      },
+      "firmware_restart": {
+        "name": "Firmware restart"
+      },
+      "klipper_restart": {
+        "name": "Klipper restart"
+      },
+      "test_notification": {
+        "name": "Send test notification"
+      }
+    },
+    "number": {
+      "nozzle_target_temp": {
+        "name": "Nozzle target temperature (active tool)"
+      },
+      "tool_target_temp": {
+        "name": "Tool {tool} target temperature"
+      },
+      "chamber_target_temp": {
+        "name": "Chamber target temperature"
+      },
+      "fan_set": {
+        "name": "Fan {name} speed"
+      },
+      "bed_target_temp": {
+        "name": "Bed target temperature"
+      },
+      "speed_factor_set": {
+        "name": "Speed factor"
+      },
+      "flow_factor_set": {
+        "name": "Flow factor"
+      },
+      "part_fan_set": {
+        "name": "Part cooling fan speed"
+      }
+    },
+    "image": {
+      "cover_image": {
+        "name": "Print preview"
+      },
+      "print_photo": {
+        "name": "Photo of last print"
+      },
+      "error_photo": {
+        "name": "Photo of last error"
+      }
+    }
+  },
+  "services": {
+    "send_gcode": {
+      "name": "Send G-code",
+      "description": "Sends G-code to the printer.",
+      "fields": {
+        "gcode": {
+          "name": "G-code",
+          "description": "G-code commands, one per line."
+        },
+        "config_entry_id": {
+          "name": "Printer",
+          "description": "Only needed with several printers."
+        }
+      }
+    },
+    "start_print": {
+      "name": "Start print",
+      "description": "Starts printing a file from the printer storage.",
+      "fields": {
+        "filename": {
+          "name": "File name",
+          "description": "Path relative to the gcodes folder."
+        },
+        "config_entry_id": {
+          "name": "Printer",
+          "description": "Only needed with several printers."
+        }
+      }
+    }
+  }
+}

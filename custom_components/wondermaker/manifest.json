@@ -1,0 +1,14 @@
+{
+  "domain": "wondermaker",
+  "name": "WonderMaker",
+  "codeowners": [
+    "@Avalon2212"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Avalon2212/ha-wondermaker",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Avalon2212/ha-wondermaker/issues",
+  "requirements": [],
+  "version": "0.5.3"
+}
