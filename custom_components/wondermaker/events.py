@@ -44,6 +44,10 @@ _LOGGER = logging.getLogger(__name__)
 PRINT_ACTIVE = ("printing", "paused")
 # Filamentsensor muss so viele Abfragen in Folge "leer" melden (verhindert Fehlalarme beim Werkzeugwechsel)
 FILAMENT_DEBOUNCE_POLLS = 2
+# Manche Drucker setzen den Druckstatus am Ende sofort zurück (SDCARD_RESET_FILE im
+# PRINT_END-Makro): "printing" -> "standby", ohne je "complete" zu melden. Dann gilt ein
+# Druck als fertig, wenn er zuletzt mindestens so weit gekommen war.
+FINISH_PROGRESS = 0.95
 MAX_TEXT = 300
 
 
@@ -60,6 +64,9 @@ class PrinterEvents:
         self._runout_polls = 0
         self._runout_notified = False
         self._doors_open = False
+        self._last_progress: float | None = None
+        self._last_filename: str | None = None
+        self._last_duration: float | None = None
 
     # ------------------------------------------------------------------
     # Hilfen
@@ -158,17 +165,31 @@ class PrinterEvents:
         print_state = get_status(data, "print_stats", "state")
         klippy = data.get("klippy_state")
 
-        # 1) Druck fertig
+        # 1) Druck fertig ("complete" oder – wenn das Makro zurücksetzt – "standby" nach fast voller Länge)
         if print_state is not None:
-            previous, self._last_print_state = self._last_print_state, print_state
-            if previous in PRINT_ACTIVE and print_state == "complete":
-                self._spawn(
-                    self._on_finished(
-                        get_status(data, "print_stats", "filename") or None,
-                        get_status(data, "print_stats", "print_duration"),
-                    ),
-                    "print_finished",
+            if print_state in PRINT_ACTIVE:
+                progress = get_status(data, "display_status", "progress") or get_status(
+                    data, "virtual_sdcard", "progress"
                 )
+                if progress is not None:
+                    self._last_progress = progress
+                self._last_filename = get_status(data, "print_stats", "filename") or self._last_filename
+                duration = get_status(data, "print_stats", "print_duration")
+                if duration is not None:
+                    self._last_duration = duration
+            previous, self._last_print_state = self._last_print_state, print_state
+            if previous in PRINT_ACTIVE and print_state in ("complete", "standby"):
+                finished = print_state == "complete" or (self._last_progress or 0) >= FINISH_PROGRESS
+                if finished and self._primed:
+                    self._spawn(
+                        self._on_finished(
+                            get_status(data, "print_stats", "filename") or self._last_filename,
+                            get_status(data, "print_stats", "print_duration") or self._last_duration,
+                        ),
+                        "print_finished",
+                    )
+            if print_state not in PRINT_ACTIVE:
+                self._last_progress = None
 
         # 2) Fehler (Druckabbruch durch Fehler oder Klipper-Shutdown)
         key: tuple | None = None

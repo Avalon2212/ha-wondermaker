@@ -108,6 +108,11 @@ def _finish_time(data: dict[str, Any]) -> datetime | None:
     return dt_util.utcnow() + timedelta(seconds=remaining)
 
 
+def _non_negative(value: float | None) -> float | None:
+    """Klipper zählt Rückzüge mit – am Druckanfang kann der Wert kurz negativ sein."""
+    return None if value is None else max(0.0, value)
+
+
 def _percent(data: dict[str, Any], obj: str, key: str) -> float | None:
     value = get_status(data, obj, key)
     return None if value is None else round(value * 100, 1)
@@ -179,8 +184,8 @@ SENSORS: tuple[WMSensorDescription, ...] = (
         native_unit_of_measurement=UnitOfLength.MILLIMETERS,
         suggested_unit_of_measurement=UnitOfLength.METERS,
         suggested_display_precision=2,
-        state_class=SensorStateClass.TOTAL_INCREASING,
-        value_fn=lambda d: get_status(d, "print_stats", "filament_used"),
+        state_class=SensorStateClass.MEASUREMENT,
+        value_fn=lambda d: _non_negative(get_status(d, "print_stats", "filament_used")),
     ),
     WMSensorDescription(
         key="active_tool",

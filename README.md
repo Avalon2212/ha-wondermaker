@@ -42,7 +42,7 @@ Pick the `notify` services to send to (e.g. the Companion app of your phone), th
 
 | Switch | When | Photo |
 |---|---|---|
-| Print finished | a print ends successfully | optional switch (taken after a short delay) |
+| Print finished | a print ends successfully (also detected when the printer resets its status to `standby` right after the end macro) | optional switch (taken after a short delay) |
 | Error | a print is aborted by an error, or Klipper goes into shutdown/error (message is included) | optional switch (taken immediately) |
 | Filament runout | during a print, the sensors of the **active tool** report no filament (debounced) | no |
 | Door opened | during a print, **all** door switches are open | no |

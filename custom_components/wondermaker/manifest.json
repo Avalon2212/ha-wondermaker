@@ -10,5 +10,5 @@
   "iot_class": "local_polling",
   "issue_tracker": "https://github.com/Avalon2212/ha-wondermaker/issues",
   "requirements": [],
-  "version": "0.5.3"
+  "version": "0.5.6"
 }

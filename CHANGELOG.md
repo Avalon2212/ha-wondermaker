@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.6
+- **Fix:** „Druck fertig“ wird jetzt auch erkannt, wenn der Drucker den Status am Ende sofort auf „standby“ zurücksetzt (z. B. durch `SDCARD_RESET_FILE` im `PRINT_END`-Makro) und nie „complete“ meldet. Ein Druck gilt dann als fertig, wenn er zuletzt zu mindestens 95 % gedruckt war; ein früher Abbruch löst keine Nachricht aus.
+- Filamentverbrauch: keine Warnungen mehr im Log (Wert wird nicht mehr negativ, kein „stets steigender“ Zähler)
+
 ## 0.5.3
 - „Voraussichtlich fertig“ hat einen eigenen Ein/Aus-Schalter, einheitlich zur Schichtanzeige; Intervall mindestens 1 s (bisherige Einstellung „0 = aus“ bleibt als „aus“ erhalten)
 

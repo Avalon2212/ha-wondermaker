@@ -27,7 +27,7 @@ Wähle die `notify`-Dienste (z. B. die Mobile-App deines Handys) und schalte ein
 
 | Schalter | Wann | Foto |
 |---|---|---|
-| Druck fertig | ein Druck endet erfolgreich | optionaler Schalter (nach kurzer Verzögerung) |
+| Druck fertig | ein Druck endet erfolgreich (wird auch erkannt, wenn der Drucker den Status direkt nach dem Ende-Makro auf `standby` zurücksetzt) | optionaler Schalter (nach kurzer Verzögerung) |
 | Fehler | Druck wird durch einen Fehler abgebrochen oder Klipper geht in Shutdown/Fehler (Meldung wird mitgeschickt) | optionaler Schalter (sofort) |
 | Filament leer | während eines Drucks melden die Sensoren des **aktiven Werkzeugs** kein Filament (entprellt) | nein |
 | Tür geöffnet | während eines Drucks sind **alle** Türschalter offen | nein |
